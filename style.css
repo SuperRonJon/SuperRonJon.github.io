@@ -1,0 +1,51 @@
+body {
+	font-family: 'Roboto', 'Raleway', sans-serif;
+}
+
+/*HEADER STYLES*/
+
+#background {
+	height: 100vh;
+	background-image: url('imgs/background.jpg');
+}
+
+#header-text {
+	padding-top: 40vh;
+	color: white;
+	padding-left: 10%;
+}
+
+#header-text h1 {
+	font-size: 3.5rem;
+	font-weight: bold;
+}
+#header-text p{
+	font-size: 1.5rem;
+}
+
+@media screen and (max-width: 540px) {
+    #header-text {
+        padding-left: 10px;
+        padding-right: 10px;
+        padding-top: 20vh;
+        text-align: center;
+    }
+}
+
+/*BUTTON STYLING*/
+
+.btn-outline-custom {
+	border: 1px solid white;
+	color: white;
+	border-radius: 15px;
+}
+
+.btn-outline-custom:hover {
+	background-color: white;
+	color: black;
+}
+
+/*ABOUT SECTION STYLING*/
+#about {
+	height: 40vh;
+}
