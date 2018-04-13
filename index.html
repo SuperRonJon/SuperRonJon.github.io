@@ -11,7 +11,7 @@
 </head>
 <body>
 	<div id="background">
-		<nav class="navbar navbar-expand-lg navbar-dark fixed-top">
+		<nav id="mynav" class="navbar navbar-expand-lg navbar-dark fixed-top">
 			<a class="navbar-brand" href="#">Patrick Seute</a>
 			<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
 				<span class="navbar-toggler-icon"></span>
@@ -19,7 +19,7 @@
 			<div class="collapse navbar-collapse" id="navbarSupportedContent">
 				<div class="navbar-nav ml-auto">
 					  <a class="nav-item nav-link active" href="#">Home <span class="sr-only">(current)</span></a>
-					  <a class="nav-item nav-link" href="#">About</a>
+					  <a class="nav-item nav-link" href="#about">About</a>
 					  <a class="nav-item nav-link" href="#">Skills</a>
 					  <a class="nav-item nav-link" href="#">Projects</a>
 				</div>
@@ -30,12 +30,16 @@
 			<div id="header-text">
 				<h1>Patrick Seute</h1>
 				<p>Professional Software Design</p>
-				<a href="#" class="btn btn-lg btn-outline-custom">Learn More</a>
+				<a href="#about" class="btn btn-lg btn-outline-custom">Learn More</a>
 			</div>
 		</header>
 	</div>
 	<section id="about">
-		<h2>About Me</h2>
+		<div class="heading">
+			<h2>About Me</h2>
+		</div>
+		<p>I am a Computer Science student at Old Dominion University in Norfolk, Virginia focusing on desktop software engineering and full stack web development.</p>
+		<p>I enjoy working to produce products that help people to make their lives easier and learning new things.</p>
 	</section>
 	
 	<script
@@ -43,5 +47,6 @@
   integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
   crossorigin="anonymous"></script>
 	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+	<script type="text/javascript" src="script.js"></script>
 </body>
 </html>
