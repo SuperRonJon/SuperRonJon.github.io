@@ -2,6 +2,17 @@ body {
 	font-family: 'Roboto', 'Raleway', sans-serif;
 }
 
+/*NAV STYLING*/
+
+.nav-colored {
+	background-color: #fff;
+	color: #303030;
+}
+
+nav.navbar {
+transition: all 0.35s;
+}
+
 /*HEADER STYLES*/
 
 #background {
@@ -48,4 +59,16 @@ body {
 /*ABOUT SECTION STYLING*/
 #about {
 	height: 40vh;
+	background-color: #efefef;
+	font-family: 'Raleway';
+}
+
+#about p{
+	margin: 3%;
+	text-align: center;
+}
+
+.heading{
+	text-align: center;
+	padding-top: 3%;
 }
