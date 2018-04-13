@@ -2,6 +2,12 @@ body {
 	font-family: 'Roboto', 'Raleway', sans-serif;
 }
 
+.grid {
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: center;
+}
+
 /*NAV STYLING*/
 
 .nav-colored {
@@ -78,6 +84,7 @@ transition: all 0.35s;
 	text-align: center;
 	/*padding-top: 3%;*/
 	padding-top: 70px;
+	padding-bottom: 70px;
 }
 
 #about-text {
@@ -90,12 +97,6 @@ transition: all 0.35s;
 	margin-top: 20px;
 	font-size: 45px;
 	font-family: 'Raleway';
-}
-
-.grid {
-	display: flex;
-	flex-wrap: wrap;
-	justify-content: center;
 }
 
 .skill {
@@ -120,5 +121,13 @@ transition: all 0.35s;
 
 /*PROJECTS SECTION STYLING*/
 #projects {
-	background-color: #E8DAB2;
+	background-color: #4F6D7A;
+	color: #fff;
+}
+
+#projects img{
+	width: 200px;
+	height: auto;
+	display: block;
+	margin: 0 auto;
 }
