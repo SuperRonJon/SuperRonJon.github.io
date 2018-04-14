@@ -123,6 +123,7 @@ transition: all 0.35s;
 #projects {
 	background-color: #4F6D7A;
 	color: #fff;
+	padding-bottom: 70px;
 }
 
 #projects img{
