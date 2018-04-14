@@ -132,3 +132,7 @@ transition: all 0.35s;
 	display: block;
 	margin: 0 auto;
 }
+
+.thumbnail {
+	margin-bottom: 15px;
+}
