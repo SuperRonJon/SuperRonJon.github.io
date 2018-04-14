@@ -136,3 +136,13 @@ transition: all 0.35s;
 .thumbnail {
 	margin-bottom: 15px;
 }
+
+.btn-custom {
+	background-color: #214453;
+	color: #fff;
+}
+
+.btn-custom:hover {
+	background-color: #123240;
+	color: #fff;
+}
