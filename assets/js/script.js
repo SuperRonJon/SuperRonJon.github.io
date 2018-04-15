@@ -1,7 +1,8 @@
+var isToggled = false;
 var myNav = document.getElementById('mynav');
 window.onscroll = function () { 
     "use strict";
-    if ((window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop || 0) >= 200 ) {
+    if (((window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop || 0) >= 200) || isToggled ) {
         myNav.classList.add("nav-colored");
         myNav.classList.remove("navbar-dark");
         myNav.classList.add("navbar-light");
@@ -16,7 +17,6 @@ window.onscroll = function () {
 };
 
 var toggleBtn = document.querySelector('.navbar-toggler');
-var isToggled = false;
 toggleBtn.addEventListener('click', function(){
 	if(isToggled && ((window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop || 0) >= 200 )){
         isToggled = false;
