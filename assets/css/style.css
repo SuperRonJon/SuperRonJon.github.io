@@ -89,6 +89,10 @@ transition: all 0.35s;
 	padding-bottom: 70px;
 }
 
+#about .heading{
+	padding-bottom: 0px;
+}
+
 #about-text {
 }
 
