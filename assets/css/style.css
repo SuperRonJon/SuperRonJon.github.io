@@ -148,3 +148,7 @@ transition: all 0.35s;
 	background-color: #123240;
 	color: #fff;
 }
+
+.caption {
+	padding-top: 15px;
+}
