@@ -23,7 +23,9 @@ transition: all 0.35s;
 
 #background {
 	height: 100vh;
-	background-image: url('../imgs/background.jpg');
+	background-image: 
+		linear-gradient(rgba(0,0,0,0.1), rgba(0,0,0,0.1)),
+		url('../imgs/background.jpg');
 }
 
 #header-text {
