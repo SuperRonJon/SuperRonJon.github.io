@@ -1,0 +1,44 @@
+body {
+    font-family: 'Roboto', sans-serif;
+}
+
+#intro {
+    text-align: center;
+    padding: 15% 0;
+    background-color: #f4f4f4;
+}
+
+#intro h1 {
+    margin-bottom: 50px;
+}
+
+#works img {
+    width: 200px;
+	height: auto;
+	display: block;
+	margin: 0 auto;
+}
+
+#works {
+    font-family: 'Raleway', sans-serif;
+    padding-top: 40px;
+    background-color: #4F6D7A;
+    color: white;
+}
+
+#works .thumbnail .caption {
+    padding-top: 20px;
+}
+
+.section-header {
+    padding-bottom: 50px;
+    text-align: center;
+}
+
+#journals {
+    margin-bottom: 90px;
+}
+
+#longer-works {
+    padding-bottom: 100px;
+}
