@@ -57,7 +57,8 @@ button.addEventListener('click', event => {
 
     let url = 'http://localhost:5000/scores/' + year + '/' + week;
 
-    if(team.toLowerCase() !== 'all'){
+    if(team.toLowerCase() !== 'all' && team !== ''){
+        console.log(team)
         url += '/' + team;
     }
 
