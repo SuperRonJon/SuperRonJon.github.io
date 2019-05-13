@@ -16,8 +16,12 @@ function httpGetAsync(url, callback){
     xmlHttp.send(null);
 }
 
+//Creates specific string depending on play type
 function createString(play){
-    let result = ""
+    let result = "";
+    const re = /\d+\-\d+/;
+    const score_str = play['score'];
+    const score = `(${score_str.match(re)[0]})`;
     if(play['type'] === 'TD'){
         if(play['play_type'] === 'pass'){
             result = `Pass from ${play['passer']} to ${play['player']} for ${play['yards']} yards`;
@@ -45,9 +49,9 @@ function createString(play){
 
     }
     else if(play['type'] === 'SF'){
-        result = `Safety by ${play['team']}`;
+        result = `Safety by ${play['player']}`;
     }
-    return result;
+    return result + " " + score;
 }
 
 button.addEventListener('click', event => {
@@ -57,19 +61,25 @@ button.addEventListener('click', event => {
 
     let url = 'http://localhost:5000/scores/' + year + '/' + week;
 
+    //Test if searching for specific team
     if(team.toLowerCase() !== 'all' && team !== ''){
-        console.log(team)
         url += '/' + team;
     }
 
+    //Clear list and create searching notification
+    while(ul.firstChild){
+        ul.removeChild(ul.firstChild);
+    }
     let li = document.createElement('li');
     li.appendChild(document.createTextNode('Searching...'));
     li.setAttribute('id', 'searching');
     ul.appendChild(li);
 
+    //Request url
     httpGetAsync(url, function(response){
-        console.log(response);
+        //Remove searching notification
         document.querySelector('#searching').remove()
+        //Generate list of plays
         response.forEach(function(play){
             let li = document.createElement('li');
             li.appendChild(document.createTextNode(createString(play)));
