@@ -26,7 +26,6 @@ function createString(play){
     const re = /\d+\-\d+/;
     const score_str = play['score'];
     const score = `(${score_str.match(re)[0]})`;
-    play['play_type'] = play['play_type'].toTitle()
     if(play['type'] === 'TD'){
         if(play['play_type'] === 'pass'){
             result = `Pass from ${play['passer']} to ${play['player']} for ${play['yards']} yards`;
@@ -35,7 +34,7 @@ function createString(play){
             result = `Run by ${play['player']} for ${play['yards']} yards`;
         }
         else{
-            result = `${play['play_type']} by ${play['player']} for ${play['yards']} yards`;
+            result = `${play['play_type'].toTitle()} by ${play['player']} for ${play['yards']} yards`;
         }
     }
     else if(play['type'] === 'PAT'){
