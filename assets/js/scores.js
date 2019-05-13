@@ -5,6 +5,10 @@ const week_input = document.querySelector('#week');
 const team_input = document.querySelector('#team');
 const ul = document.querySelector('#list')
 
+String.prototype.toTitle = function(){
+    return this.replace(/\w\S*/g, function(txt){return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();});
+}
+
 function httpGetAsync(url, callback){
     let xmlHttp = new XMLHttpRequest();
     xmlHttp.onreadystatechange = function(){
@@ -22,6 +26,7 @@ function createString(play){
     const re = /\d+\-\d+/;
     const score_str = play['score'];
     const score = `(${score_str.match(re)[0]})`;
+    play['play_type'] = play['play_type'].toTitle()
     if(play['type'] === 'TD'){
         if(play['play_type'] === 'pass'){
             result = `Pass from ${play['passer']} to ${play['player']} for ${play['yards']} yards`;
@@ -30,7 +35,7 @@ function createString(play){
             result = `Run by ${play['player']} for ${play['yards']} yards`;
         }
         else{
-            result = `${play['play_type']} by ${play['player']}`;
+            result = `${play['play_type']} by ${play['player']} for ${play['yards']} yards`;
         }
     }
     else if(play['type'] === 'PAT'){
@@ -54,7 +59,16 @@ function createString(play){
     return result + " " + score;
 }
 
-button.addEventListener('click', event => {
+button.addEventListener('click', getPlays);
+document.querySelectorAll('input').forEach(textBox => {
+    textBox.addEventListener('keyup', event => {
+        if(event.keyCode === 13){
+            getPlays();
+        }
+    });
+});
+
+function getPlays(){
     const year = year_input.value;
     const week = week_input.value;
     const team = team_input.value;
@@ -86,4 +100,4 @@ button.addEventListener('click', event => {
             ul.appendChild(li);
         });
     });
-});
+}
