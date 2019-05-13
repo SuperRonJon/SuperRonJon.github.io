@@ -3,18 +3,32 @@
     <head>
         <meta charset="utf-8">
         <title>NFLScores</title>
-        <link rel="stylesheet" href="assets/css/scores.css">
+        <link rel="stylesheet" href="assets/css/skeleton.css">
     </head>
     <body>
-        <h1>NFLScores</h1>
-        <input id="year" type="text" name="year" placeholder="Enter year">
-        <input id="week" type="text" name="week" placeholder="Enter week">
-        <input id="team" type="text" name="team" placeholder="Enter team">
-        <button>Submit</button>
+        <div class="container">
+            <h1>NFLScores</h1>
+            <div class="row">
+                <div class="four columns">
+                    <label>Year</label>
+                    <input class="u-full-width" id="year" type="text" name="year" value="2018">
+                </div>
+                <div class="four columns">
+                    <label>Week</label>
+                    <input class="u-full-width" id="week" type="text" name="week" placeholder="Enter week">
+                </div>
+                <div class="four columns">
+                    <label>Team (optional)</label>
+                    <input class="u-full-width" id="team" type="text" name="team" placeholder="Enter team">
+                </div>
+            </div>
+            <button class="button-primary">Submit</button>
 
-        <ul id="list">
+            <ul id="list">
 
-        </ul>
+            </ul>
+
+        </div>
     </body>
     <script src="assets/js/scores.js" charset="utf-8"></script>
 </html>
