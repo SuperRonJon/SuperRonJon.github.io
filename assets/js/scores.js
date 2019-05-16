@@ -93,10 +93,17 @@ function getPlays(){
         //Remove searching notification
         document.querySelector('#searching').remove()
         //Generate list of plays
-        response.forEach(function(play){
-            let li = document.createElement('li');
-            li.appendChild(document.createTextNode(createString(play)));
-            ul.appendChild(li);
-        });
+        if(response.length == 0){
+          let li = document.createElement('li');
+          li.appendChild(document.createTextNode("No scores found..."));
+          ul.appendChild(li);
+        } else {
+          response.forEach(function(play){
+              let li = document.createElement('li');
+              li.appendChild(document.createTextNode(createString(play)));
+              ul.appendChild(li);
+          });
+        }
+
     });
 }
