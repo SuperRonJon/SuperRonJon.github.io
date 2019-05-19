@@ -6,6 +6,15 @@ const team_input = document.querySelector('#team');
 const resultsDiv = document.querySelector('#results');
 const apiBase = 'http://localhost:5000/'
 
+button.addEventListener('click', getWeekGames);
+document.querySelectorAll('input').forEach(textBox => {
+    textBox.addEventListener('keyup', event => {
+        if(event.keyCode === 13){
+            getWeekGames();
+        }
+    });
+});
+
 String.prototype.toTitle = function(){
     return this.replace(/\w\S*/g, function(txt){return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();});
 }
@@ -60,15 +69,6 @@ function createString(play){
     return result + " " + score;
 }
 
-button.addEventListener('click', getWeekGames);
-document.querySelectorAll('input').forEach(textBox => {
-    textBox.addEventListener('keyup', event => {
-        if(event.keyCode === 13){
-            getPlays();
-        }
-    });
-});
-
 function clearResults(){
     while(resultsDiv.firstChild){
         resultsDiv.removeChild(resultsDiv.firstChild);
@@ -121,40 +121,5 @@ function getMatchPlays(id){
               ul.appendChild(li);
           });
         }
-    });
-}
-
-function getPlays(){
-    const year = year_input.value;
-    const week = week_input.value;
-
-    let url = 'http://localhost:5000/scores/' + year + '/' + week;
-
-    //Clear list and create searching notification
-    while(ul.firstChild){
-        ul.removeChild(ul.firstChild);
-    }
-    let li = document.createElement('li');
-    li.appendChild(document.createTextNode('Searching...'));
-    li.setAttribute('id', 'searching');
-    ul.appendChild(li);
-
-    //Request url
-    httpGetAsync(url, function(response){
-        //Remove searching notification
-        document.querySelector('#searching').remove()
-        //Generate list of plays
-        if(response.length == 0){
-          let li = document.createElement('li');
-          li.appendChild(document.createTextNode("No scores found..."));
-          ul.appendChild(li);
-        } else {
-          response.forEach(function(play){
-              let li = document.createElement('li');
-              li.appendChild(document.createTextNode(createString(play)));
-              ul.appendChild(li);
-          });
-        }
-
     });
 }
