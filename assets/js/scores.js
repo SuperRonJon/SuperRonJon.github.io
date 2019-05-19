@@ -3,7 +3,8 @@ const button = document.querySelector('button');
 const year_input = document.querySelector('#year');
 const week_input = document.querySelector('#week');
 const team_input = document.querySelector('#team');
-const ul = document.querySelector('#list')
+const resultsDiv = document.querySelector('#results');
+const apiBase = 'http://localhost:5000/'
 
 String.prototype.toTitle = function(){
     return this.replace(/\w\S*/g, function(txt){return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();});
@@ -26,39 +27,40 @@ function createString(play){
     const re = /\d+\-\d+/;
     const score_str = play['score'];
     const score = `(${score_str.match(re)[0]})`;
+    result += "(" + play['team'].toUpperCase() + ") "
     if(play['type'] === 'TD'){
         if(play['play_type'] === 'pass'){
-            result = `Pass from ${play['passer']} to ${play['player']} for ${play['yards']} yards`;
+            result += `Pass from ${play['passer']} to ${play['player']} for ${play['yards']} yards`;
         }
         else if(play['play_type'] === 'run'){
-            result = `Run by ${play['player']} for ${play['yards']} yards`;
+            result += `Run by ${play['player']} for ${play['yards']} yards`;
         }
         else{
-            result = `${play['play_type'].toTitle()} by ${play['player']} for ${play['yards']} yards`;
+            result += `${play['play_type'].toTitle()} by ${play['player']} for ${play['yards']} yards`;
         }
     }
     else if(play['type'] === 'PAT'){
-        result = `Point after good by ${play['player']}`;
+        result += `Point after good by ${play['player']}`;
     }
     else if(play['type'] === 'FG'){
-        result = `Field goal good by ${play['player']} for ${play['yards']} yards`;
+        result += `Field goal good by ${play['player']} for ${play['yards']} yards`;
     }
     else if(play['type'] === '2PtConv'){
         if(play['play_type'] === 'pass'){
-            result = `Two point conversion pass from ${play['passer']} to ${play['player']}`;
+            result += `Two point conversion pass from ${play['passer']} to ${play['player']}`;
         }
         else if(play['play_type'] === 'run'){
-            result = `Two point conversion run by ${play['player']}`;
+            result += `Two point conversion run by ${play['player']}`;
         }
 
     }
     else if(play['type'] === 'SF'){
-        result = `Safety by ${play['player']}`;
+        result += `Safety by ${play['player']}`;
     }
     return result + " " + score;
 }
 
-button.addEventListener('click', getPlays);
+button.addEventListener('click', getWeekGames);
 document.querySelectorAll('input').forEach(textBox => {
     textBox.addEventListener('keyup', event => {
         if(event.keyCode === 13){
@@ -67,17 +69,66 @@ document.querySelectorAll('input').forEach(textBox => {
     });
 });
 
+function clearResults(){
+    while(resultsDiv.firstChild){
+        resultsDiv.removeChild(resultsDiv.firstChild);
+    }
+}
+
+function getWeekGames(){
+    const year = year_input.value;
+    const week = week_input.value;
+
+    clearResults();
+
+    let url = apiBase + 'scores/' + year + '/' + week;
+    httpGetAsync(url, function(response){
+        if(response.length != 0){
+            response.forEach(function(match){
+                let result = document.createElement('div');
+                result.setAttribute('class', 'match-result');
+                let h6 = document.createElement('h6');
+                h6.appendChild(document.createTextNode(match['name']));
+                let gameButton = document.createElement('button');
+                gameButton.setAttribute('id', match['id']);
+                gameButton.setAttribute('onclick', 'getMatchPlays(' + match["id"] + ')')
+                gameButton.appendChild(document.createTextNode('Get Plays'));
+
+                result.appendChild(h6);
+                result.appendChild(gameButton);
+                resultsDiv.appendChild(result);
+            });
+        }
+    });
+}
+
+function getMatchPlays(id){
+    const url = apiBase + 'scores/' + id;
+    const ul = document.createElement('ul');
+    clearResults();
+    resultsDiv.appendChild(ul);
+
+    httpGetAsync(url, function(response){
+        //Generate list of plays
+        if(response['scores'].length == 0){
+          let li = document.createElement('li');
+          li.appendChild(document.createTextNode("No scores found..."));
+          ul.appendChild(li);
+        } else {
+          response['scores'].forEach(function(play){
+              let li = document.createElement('li');
+              li.appendChild(document.createTextNode(createString(play)));
+              ul.appendChild(li);
+          });
+        }
+    });
+}
+
 function getPlays(){
     const year = year_input.value;
     const week = week_input.value;
-    const team = team_input.value;
 
     let url = 'http://localhost:5000/scores/' + year + '/' + week;
-
-    //Test if searching for specific team
-    if(team.toLowerCase() !== 'all' && team !== ''){
-        url += '/' + team;
-    }
 
     //Clear list and create searching notification
     while(ul.firstChild){
