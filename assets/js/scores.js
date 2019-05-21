@@ -4,7 +4,7 @@ const year_input = document.querySelector('#year');
 const week_input = document.querySelector('#week');
 const team_input = document.querySelector('#team');
 const resultsDiv = document.querySelector('#results');
-const apiBase = 'http://api.patrickseute.com/'
+const apiBase = 'https://api.patrickseute.com/'
 
 button.addEventListener('click', getWeekGames);
 document.querySelectorAll('input').forEach(textBox => {
