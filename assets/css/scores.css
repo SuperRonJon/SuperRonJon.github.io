@@ -3,6 +3,10 @@
     flex-basis: 30%;
 }
 
+.center{
+    text-align: center;
+}
+
 #results{
     display: flex;
     justify-content: space-around;

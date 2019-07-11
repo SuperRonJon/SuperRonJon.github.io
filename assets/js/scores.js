@@ -4,7 +4,7 @@ const year_input = document.querySelector('#year');
 const week_input = document.querySelector('#week');
 const team_input = document.querySelector('#team');
 const resultsDiv = document.querySelector('#results');
-const apiBase = 'https://api.patrickseute.com/'
+const apiBase = 'http://localhost:5000/';
 
 button.addEventListener('click', getWeekGames);
 document.querySelectorAll('input').forEach(textBox => {
@@ -69,13 +69,27 @@ function createString(play){
     return result + " " + score;
 }
 
+function splitInfo(myString){
+    return myString.split(/-+/);
+}
+
 function clearResults(){
+    console.log('Clearing');
     while(resultsDiv.firstChild){
         resultsDiv.removeChild(resultsDiv.firstChild);
+    }
+    let btn = document.querySelector('#fullbtn');
+    if(btn){
+        btn.remove();
+    }
+    let newdiv = document.querySelector('#fulldiv');
+    if(newdiv){
+        newdiv.remove();
     }
 }
 
 function getWeekGames(){
+    console.log('Getting week');
     const year = year_input.value;
     const week = week_input.value;
 
@@ -84,6 +98,18 @@ function getWeekGames(){
     let url = apiBase + 'scores/' + year + '/' + week;
     httpGetAsync(url, function(response){
         if(response.length != 0){
+
+            let fullButton = document.createElement('button');
+            fullButton.setAttribute('class', 'button button-primary');
+            fullButton.setAttribute('id', 'fullbtn');
+            fullButton.setAttribute('onclick', 'getFullWeek(' + year + ', ' + week + ')');
+            fullButton.appendChild(document.createTextNode('View Full Week'));
+
+            let btnDiv = document.createElement('div');
+            btnDiv.setAttribute('class', 'center');
+            btnDiv.appendChild(fullButton);
+            document.querySelector('.container').insertBefore(btnDiv, resultsDiv);
+
             response.forEach(function(match){
                 let result = document.createElement('div');
                 result.setAttribute('class', 'match-result');
@@ -99,6 +125,30 @@ function getWeekGames(){
                 resultsDiv.appendChild(result);
             });
         }
+    });
+}
+
+function getFullWeek(year, week){
+    const url = apiBase + 'scores/full_week/' + year + '/' + week;
+    const newdiv = document.createElement('div');
+    newdiv.setAttribute('id', 'fulldiv');
+    clearResults();
+    httpGetAsync(url, function(response){
+        console.log(response['games'][0]['id']);
+        response['games'].forEach(function(match){
+            const ul = document.createElement('ul');
+            const gameTitle = document.createElement('h4');
+            gameTitle.setAttribute('class', 'center');
+            gameTitle.appendChild(document.createTextNode(match['name']));
+            match['plays'].forEach(function(play){
+                let li = document.createElement('li');
+                li.appendChild(document.createTextNode(createString(play)));
+                ul.appendChild(li);
+            });
+            newdiv.appendChild(gameTitle);
+            newdiv.appendChild(ul);
+        });
+        document.querySelector('.container').appendChild(newdiv);
     });
 }
 
