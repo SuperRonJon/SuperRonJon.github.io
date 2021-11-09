@@ -15,6 +15,7 @@ var modeButtons = document.querySelectorAll(".mode");
 var livesDisplay = document.querySelector("#livesDisplay");
 var winStreakDisplay = document.querySelector("#winStreakDisplay");
 var resetStreak = true;
+var hasLost = false;
 
 init();
 
@@ -59,6 +60,7 @@ function setupModeButtons()
 				totalLives = 2;
 			}
 			//reset the display
+			resetStreak = true;
 			reset();		
 		});
 	}
@@ -73,7 +75,11 @@ function setupSquares()
 			//grab color of clicked square
 			var thisColor = this.style.backgroundColor;
 			//compare color to the goal
-			if(thisColor === goal)
+			if(hasLost) 
+			{
+				loseGame();
+			}
+			else if(thisColor === goal)
 			{
 				//the color picked was correct
 				winGame();
@@ -103,6 +109,7 @@ function winGame()
 function loseGame()
 {
 	messageDisplay.textContent = "You lose.";
+	hasLost = true;
 	endGame();
 }
 
@@ -178,6 +185,7 @@ function reset()
 	}
 	winStreakDisplay.textContent = "win streak: " + winStreak;
 	resetStreak = true;
+	hasLost = false;
 	//change goal display
 	colorDisplay.textContent = goal;
 	//change the colors of the squares
