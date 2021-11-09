@@ -14,6 +14,7 @@ var resetBtn = document.getElementById("reset");
 var modeButtons = document.querySelectorAll(".mode");
 var livesDisplay = document.querySelector("#livesDisplay");
 var winStreakDisplay = document.querySelector("#winStreakDisplay");
+var resetStreak = true;
 
 init();
 
@@ -39,19 +40,23 @@ function setupModeButtons()
 		//add event listeners to each difficulty button
 		modeButtons[i].addEventListener("click", function(){
 			//remove the selected class from each button and add it to the correct one
-			modeButtons[0].classList.remove("selected");
-			modeButtons[1].classList.remove("selected");
+			modeButtons.forEach(button => button.classList.remove("selected"));
 			this.classList.add("selected");
 			//update the number of squares based on the difficulty chosen
 			if(this.textContent === "Easy")
 			{
-				numSquares = 3;
+				numSquares = 6;
+				totalLives = 3;
+			}
+			else if(this.textContent === "Normal")
+			{
+				numSquares = 6;
 				totalLives = 1;
 			}
 			else
 			{
-				numSquares = 6;
-				totalLives = 3;
+				numSquares = 9;
+				totalLives = 2;
 			}
 			//reset the display
 			reset();		
@@ -92,14 +97,13 @@ function winGame()
 {
 	messageDisplay.textContent = "Correct!";
 	endGame();
-	winStreak++;
+	resetStreak = false;
 }
 
 function loseGame()
 {
 	messageDisplay.textContent = "You lose.";
 	endGame();
-	winStreak = 0;
 }
 
 //Changes page colors to correct color and changes the text of the reset button
@@ -167,7 +171,13 @@ function reset()
 	curLives = totalLives;
 	updateLivesDisplay();
 	//update the win streak display
+	if (resetStreak) {
+		winStreak = 0;
+	} else {
+		winStreak++;
+	}
 	winStreakDisplay.textContent = "win streak: " + winStreak;
+	resetStreak = true;
 	//change goal display
 	colorDisplay.textContent = goal;
 	//change the colors of the squares
