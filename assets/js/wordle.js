@@ -17,21 +17,17 @@ function includesAllLetters(letters, goodLetters) {
 }
 
 function isCandidate(word, goodLetters, badLetters, letterOrder) {
-    //console.log(word);
     let letters = word.split("");
     
     if(!includesAllLetters(letters, goodLetters)) {
-        //console.log("1");
         return false;
     }
 
     for (let i = 0; i < 5; i++) {
         if (letters.at(i) !== letterOrder.at(i) && letterOrder.at(i) !== "*") {
-            //console.log("2");
             return false;
         }
         if (badLetters.includes(letters.at(i))) {
-            //console.log("3");
             return false;
         }
     }
