@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="assets/css/wordle.css">
+    <title>Wordle Solver</title>
+</head>
+<body>
+    <div class="container">
+        <h1 class="centered">Homemade Wordle Helper</h1>
+        <h3 class="centered">Patrick Seute</h3>
+        <div class="centered">
+            <label for="goodLetters">Good Letters</label>
+            <input type="text" id="goodLetters" name="goodLetters">
+        </div>
+        <div class="centered">
+            <label for="badLetters">Bad Letters</label>
+            <input type="text" id="badLetters" name="badLetters">
+        </div>
+        <div class="centered">
+            <label for="letterOrder">Letter Order</label>
+            <input type="text" id="letterOrder" name="letterOrder">
+        </div>
+        <button  class="centered" id="searchButton">Search</button>
+
+        <ul class="centered" id="candidates"></ul>
+    </div>
+</body>
+<script src="assets/js/wordle.js"></script>
+</html>
