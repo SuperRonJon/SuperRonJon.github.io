@@ -56,9 +56,9 @@ function main() {
 
     let candidates = [];
 
-    goodLetters = goodLetters.toLowerCase().split("");
-    badLetters = badLetters.toLowerCase().split("");
-    letterOrder = letterOrder.toLowerCase().split("");
+    goodLetters = goodLetters.toLowerCase().trim().split("");
+    badLetters = badLetters.toLowerCase().trim().split("");
+    letterOrder = letterOrder.toLowerCase().trim().split("");
 
     for(let i = 0; i < answers.length; i++) {
         let cur = answers.at(i);
