@@ -7,6 +7,12 @@ let button = document.querySelector("#searchButton");
 let list = document.querySelector("#candidates");
 button.addEventListener("click", main);
 
+document.addEventListener("keyup", event => {
+    if(event.key === "Enter") {
+        main();
+    }
+});
+
 function includesAllLetters(letters, goodLetters) {
     for(let i = 0; i < goodLetters.length; i++) {
         if(!letters.includes(goodLetters.at(i))) {
