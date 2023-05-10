@@ -2,7 +2,9 @@ var numSquares = 6;
 var colors = [];
 var goal;
 var winStreak = 0;
+var longestStreak = 0;
 var totalLives = 3;
+var mode = 0;
 var curLives;
 
 //getting references
@@ -14,7 +16,9 @@ var resetBtn = document.getElementById("reset");
 var modeButtons = document.querySelectorAll(".mode");
 var livesDisplay = document.querySelector("#livesDisplay");
 var winStreakDisplay = document.querySelector("#winStreakDisplay");
+var longestStreakDisplay = document.querySelector("#longestStreakDisplay");
 var resetStreak = true;
+var resetLongest = false;
 var hasLost = false;
 
 init();
@@ -48,16 +52,28 @@ function setupModeButtons()
 			{
 				numSquares = 6;
 				totalLives = 3;
+				if(mode !== 0) {
+					resetLongest = true;
+				}
+				mode = 0;
 			}
 			else if(this.textContent === "Normal")
 			{
-				numSquares = 6;
-				totalLives = 1;
+				numSquares = 9;
+				totalLives = 2;
+                if(mode !== 1) {
+                    resetLongest = true;
+                }
+                mode = 1;
 			}
 			else
 			{
-				numSquares = 9;
-				totalLives = 2;
+				numSquares = 6;
+				totalLives = 1;
+                if(mode !== 2) {
+                    resetLongest = true;
+                }
+                mode = 2;
 			}
 			//reset the display
 			resetStreak = true;
@@ -182,9 +198,17 @@ function reset()
 		winStreak = 0;
 	} else {
 		winStreak++;
+		if(winStreak > longestStreak) {
+            longestStreak = winStreak;
+        }
+	}
+    if (resetLongest) {
+        longestStreak = 0;
 	}
 	winStreakDisplay.textContent = "win streak: " + winStreak;
+	longestStreakDisplay.textContent = "longest streak: " + longestStreak;
 	resetStreak = true;
+	resetLongest = false;
 	hasLost = false;
 	//change goal display
 	colorDisplay.textContent = goal;
