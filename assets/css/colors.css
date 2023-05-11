@@ -54,16 +54,11 @@ button:hover{
 }
 
 #livesDisplay{
-	padding-left: 5%;
-	text-transform: uppercase;
-	font-weight: 700;
-	color: steelblue;
-	letter-spacing: 1px;
-	font-size: inherit;
+    padding-left: 5%;
 }
 
-#winStreakDisplay{
-	padding-right: 5%;
+.stripeDisplay{
+    padding-right: 3%;
 	text-transform: uppercase;
 	font-weight: 700;
 	color: steelblue;
