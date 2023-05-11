@@ -78,6 +78,10 @@ button:hover{
 	--webkit-transition: background-color 0.5s;
 }
 
+.deactivated{
+	background-color: #232323 !important;
+}
+
 .selected{
 	background-color: steelblue;
 	color: white;

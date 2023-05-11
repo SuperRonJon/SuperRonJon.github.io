@@ -100,9 +100,9 @@ function setupSquares()
 				//the color picked was correct
 				winGame();
 			}
-			else
+			else if(!this.classList.contains("deactivated"))
 			{
-				this.style.backgroundColor = "#232323";
+				this.classList.add('deactivated')
 				messageDisplay.textContent = "Try Again";
 				curLives--;
 				updateLivesDisplay();
@@ -223,6 +223,10 @@ function reset()
 		else
 		{
 			squares[i].style.display = "none";
+		}
+
+		if(squares[i].classList.contains('deactivated')) {
+			squares[i].classList.remove('deactivated');
 		}
 	}
 	//reset h1 background color
