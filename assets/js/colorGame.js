@@ -2,7 +2,7 @@ var numSquares = 6;
 var colors = [];
 var goal;
 var winStreak = 0;
-var longestStreak = 0;
+var longestStreak = [0, 0, 0];
 var totalLives = 3;
 var mode = 0;
 var curLives;
@@ -52,27 +52,18 @@ function setupModeButtons()
 			{
 				numSquares = 6;
 				totalLives = 3;
-				if(mode !== 0) {
-					resetLongest = true;
-				}
 				mode = 0;
 			}
 			else if(this.textContent === "Normal")
 			{
 				numSquares = 9;
 				totalLives = 2;
-                if(mode !== 1) {
-                    resetLongest = true;
-                }
                 mode = 1;
 			}
 			else
 			{
 				numSquares = 6;
 				totalLives = 1;
-                if(mode !== 2) {
-                    resetLongest = true;
-                }
                 mode = 2;
 			}
 			//reset the display
@@ -198,15 +189,15 @@ function reset()
 		winStreak = 0;
 	} else {
 		winStreak++;
-		if(winStreak > longestStreak) {
-            longestStreak = winStreak;
+		if(winStreak > longestStreak[mode]) {
+            longestStreak[mode] = winStreak;
         }
 	}
     if (resetLongest) {
-        longestStreak = 0;
+        longestStreak[mode] = 0;
 	}
 	winStreakDisplay.textContent = "win streak: " + winStreak;
-	longestStreakDisplay.textContent = "longest streak: " + longestStreak;
+	longestStreakDisplay.textContent = "longest streak: " + longestStreak[mode];
 	resetStreak = true;
 	resetLongest = false;
 	hasLost = false;
