@@ -2,7 +2,7 @@ var numSquares = 6;
 var colors = [];
 var goal;
 var winStreak = 0;
-var longestStreak = [0, 0, 0];
+var longestStreak = getLongestStreakFromStorage() ? getLongestStreakFromStorage() : [0, 0, 0];
 var totalLives = 3;
 var mode = 0;
 var curLives;
@@ -175,6 +175,21 @@ function randomColor()
 	return newColor;
 }
 
+function setLongestStreak(mode, newValue) {
+	longestStreak[mode] = newValue;
+	window.localStorage.setItem('longestStreak', longestStreak);
+}
+
+function getLongestStreakFromStorage() {
+	stringArr = window.localStorage.getItem('longestStreak');
+	if(stringArr !== null) {
+		return stringArr.split(',').map(item => {return parseInt(item)});
+	}
+	else {
+		return null;
+	}
+}
+
 function reset()
 {
 	//generate all new colors
@@ -190,11 +205,11 @@ function reset()
 	} else {
 		winStreak++;
 		if(winStreak > longestStreak[mode]) {
-            longestStreak[mode] = winStreak;
+			setLongestStreak(mode, winStreak);
         }
 	}
     if (resetLongest) {
-        longestStreak[mode] = 0;
+		setLongestStreak(mode, 0);
 	}
 	winStreakDisplay.textContent = "win streak: " + winStreak;
 	longestStreakDisplay.textContent = "longest streak: " + longestStreak[mode];
