@@ -26,6 +26,7 @@ class Board {
     constructor(boardString) {
         this.BOARD_SIZE = 9;
         this.grid = [];
+        this.isSolved = false;
         let index = 0;
         for(let i = 0; i < this.BOARD_SIZE; i++) {
             this.grid[i] = [];
@@ -65,7 +66,7 @@ class Board {
     }
 
     solve() {
-        this.iSolve(0, 0);
+        this.isSolved = this.iSolve(0, 0);
     }
 
     iSolve(row, col) {
@@ -140,10 +141,16 @@ function setBoard(board, cells, colorDefault=false, colorSolved=false) {
         for(let j = 0; j < board.BOARD_SIZE; j++) {
             cells[index].textContent = board.grid[i][j].getCellValue();
             if(colorSolved && !board.grid[i][j].isDefault) {
-                cells[index].style.backgroundColor = solvedColor;
+                cells[index].style.backgroundColor = board.isSolved ? solvedColor: failColor;                
             }
             if(colorDefault && board.grid[i][j].isDefault) {
                 cells[index].style.backgroundColor = defaultColor;
+            }
+            if(!colorSolved && !board.grid[i][j].isDefault) {
+                cells[index].style.backgroundColor = "";
+            }
+            if(!colorDefault && board.grid[i][j].isDefault) {
+                cells[index].style.backgroundColor = "";
             }
             index++;
         }
@@ -177,6 +184,7 @@ const solvedCells = document.getElementById("solved").getElementsByTagName("td")
 const allCells = document.getElementsByTagName("td");
 const solvedColor = "lightgreen";
 const defaultColor = "lightgrey";
+const failColor = "lightcoral";
 
 let isLoaded = false;
 let activeBoard = null;
