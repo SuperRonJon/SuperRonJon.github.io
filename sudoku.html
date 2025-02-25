@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<title>Sudoku Solver</title>
+		<meta name="description" content="">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<link rel="stylesheet" href="assets/css/sudoku.css">
+	</head>
+	<body>
+		<div id="input">
+			<label for="boardInput">Board String: </label>
+			<input id="boardInput" type="text" name="boardInput" value="x56xxx27872xx361xx8xxxxx46x5xxx47xxx4x9xxx7x5xxx65xxx4x35xxxxx7xx718xx32918xxx54x">
+			<button id="solveButton">Solve</button>
+		</div>
+		<div id="boards">
+			<div id="unsolved">
+				<table>
+					<caption>Unsolved Board</caption>
+					<colgroup><col><col><col>
+					<colgroup><col><col><col>
+					<colgroup><col><col><col>
+					<tbody>
+					<tr> 
+						<td> <td> <td> <td> <td> <td> <td> <td>  <td>
+					<tr> 
+						<td> <td> <td> <td> <td> <td> <td>  <td> <td>
+					<tr> 
+						<td> <td>  <td>  <td>  <td>  <td>  <td>  <td>  <td>
+					<tbody>
+					<tr> 
+						<td> <td>  <td> <td>  <td> <td>  <td> <td>  <td>
+					<tr> 
+						<td>  <td>  <td>  <td>  <td>  <td>  <td>  <td>  <td>
+					<tr> 
+						<td> <td>  <td>  <td> <td>  <td> <td>  <td>  <td>
+					<tbody>
+					<tr> 
+						<td> <td>  <td>  <td>  <td> <td>  <td>  <td>  <td>
+					<tr> 
+						<td>  <td>  <td>  <td>  <td> <td>  <td>  <td>  <td>
+					<tr> 
+						<td> <td>  <td>  <td> <td>  <td> <td>  <td>  <td>
+				</table>
+			</div>
+			<div id="solved">
+				<table>
+					<caption>Solved Board</caption>
+					<colgroup><col><col><col>
+						<colgroup><col><col><col>
+						<colgroup><col><col><col>
+						<tbody>
+						<tr> 
+							<td> <td> <td> <td> <td> <td> <td> <td>  <td>
+						<tr> 
+							<td> <td> <td> <td> <td> <td> <td>  <td> <td>
+						<tr> 
+							<td> <td>  <td>  <td>  <td>  <td>  <td>  <td>  <td>
+						<tbody>
+						<tr> 
+							<td> <td>  <td> <td>  <td> <td>  <td> <td>  <td>
+						<tr> 
+							<td>  <td>  <td>  <td>  <td>  <td>  <td>  <td>  <td>
+						<tr> 
+							<td> <td>  <td>  <td> <td>  <td> <td>  <td>  <td>
+						<tbody>
+						<tr> 
+							<td> <td>  <td>  <td>  <td> <td>  <td>  <td>  <td>
+						<tr> 
+							<td>  <td>  <td>  <td>  <td> <td>  <td>  <td>  <td>
+						<tr> 
+							<td> <td>  <td>  <td> <td>  <td> <td>  <td>  <td>
+				</table>
+			</div>
+		</div>
+		<script src="assets/js/sudoku.js"></script>
+	</body>
+</html>

@@ -1,0 +1,28 @@
+table { border-collapse: collapse; font-family: Calibri, sans-serif; }
+colgroup, tbody { border: solid medium; }
+td { border: solid thin; height: 2em; width: 2em; text-align: center; padding: 0; }
+
+
+#boards {
+    display: flex;
+    justify-content:center;
+    margin-top: 8em;
+}
+
+#solved {
+    margin-left: 5em;
+}
+
+#input {
+    display: flex;
+    justify-content:center;
+    margin-top: 3em;
+}
+
+#boardInput {
+    width:575px;
+}
+
+#solveButton {
+    margin-left: 1em;
+}
