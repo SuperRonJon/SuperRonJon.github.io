@@ -34,3 +34,7 @@ td { border: solid thin; height: 2em; width: 2em; text-align: center; padding: 0
 #checkboxArea {
     margin-left: 1em;
 }
+
+.selected {
+    background-color: lightblue;
+}

@@ -20,6 +20,10 @@ class Box {
     getCellValue() {
         return this.value === -1 ? " " : this.value;
     }
+
+    setCellValue(val) {
+        this.value = val;
+    }
 }
 
 class Board {
@@ -175,6 +179,11 @@ function isValidBoard(boardString) {
     return true;
 }
 
+function indexToPair(index) {
+    const BOARD_SIZE = 9;
+    return [Math.floor(index/BOARD_SIZE), index % BOARD_SIZE];
+}
+
 const solveButton = document.querySelector("#solveButton");
 const loadButton = document.querySelector("#loadButton");
 const boardInput = document.querySelector("#boardInput");
@@ -187,7 +196,86 @@ const defaultColor = "lightgrey";
 const failColor = "lightcoral";
 
 let isLoaded = false;
-let activeBoard = null;
+let activeBoard = new Board("xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx");
+
+let activeCell = null;
+let activeCellIndex = null;
+
+for(let i = 0; i < unsolvedCells.length; i++) {
+    unsolvedCells[i].addEventListener('click', () => {
+        if(activeCell === unsolvedCells[i]) {
+            activeCell.classList.remove('selected');
+            activeCell = null;
+            activeCellIndex = null;
+        }
+        else {
+            if(activeCell !== null) {
+                activeCell.classList.remove('selected');
+            }
+            activeCell = unsolvedCells[i];
+            activeCellIndex = i;
+            if(!activeCell.classList.contains('selected')) {
+                activeCell.classList.add('selected');
+            }
+        }
+    });
+}
+
+document.addEventListener('keypress', (e) => {
+    const keyPressed = parseInt(e.key)
+    if(activeCell !== null && !isNaN(keyPressed) && (0 <= keyPressed && keyPressed <= 9)) {
+        const [row, col] = indexToPair(activeCellIndex);
+        if(keyPressed === 0 && !activeBoard?.grid[row][col].isDefault) {
+            activeCell.textContent = "";
+            activeBoard?.grid[row][col].setCellValue(-1);
+        }
+        else if(keyPressed !== 0 && !activeBoard?.grid[row][col].isDefault && !activeBoard?.isSolved) {
+            activeCell.textContent = keyPressed;
+            activeBoard?.grid[row][col].setCellValue(keyPressed);
+        }
+    }
+});
+
+window.addEventListener('keydown', (e) => {
+    if(activeCell !== null) {
+        switch(e.key) {
+            case "ArrowRight":
+                if(activeCellIndex !== unsolvedCells.length - 1) {
+                    activeCell.classList.remove('selected');
+                    activeCellIndex++;
+                    activeCell = unsolvedCells[activeCellIndex];
+                    activeCell.classList.add('selected');
+                }
+                
+                break;
+            case "ArrowLeft":
+                if(activeCellIndex !== 0) {
+                    activeCell.classList.remove('selected');
+                    activeCellIndex--;
+                    activeCell = unsolvedCells[activeCellIndex];
+                    activeCell.classList.add('selected');
+                }
+                break;
+            case "ArrowUp":
+                if(activeCellIndex > 8) {
+                    activeCell.classList.remove('selected');
+                    activeCellIndex -= 9;
+                    activeCell = unsolvedCells[activeCellIndex];
+                    activeCell.classList.add('selected');
+                }
+                break;
+            case "ArrowDown":
+                if(activeCellIndex < 72) {
+                    activeCell.classList.remove('selected');
+                    activeCellIndex += 9;
+                    activeCell = unsolvedCells[activeCellIndex];
+                    activeCell.classList.add('selected');
+                }
+                break;
+        }
+    }
+    
+});
 
 loadButton.addEventListener('click', () => {
     boardString = boardInput.value;
@@ -200,10 +288,14 @@ loadButton.addEventListener('click', () => {
 });
 
 solveButton.addEventListener('click', () => {
+    /*
     if(!isLoaded) {
         console.log("Board is not loaded to solve.");
         return;
     }
-    activeBoard.solve();
-    setBoard(activeBoard, solvedCells, colorCheckbox.checked, colorCheckbox.checked);
+    */
+    if(activeBoard) {
+        activeBoard.solve();
+        setBoard(activeBoard, solvedCells, colorCheckbox.checked, colorCheckbox.checked);
+    }    
 });
