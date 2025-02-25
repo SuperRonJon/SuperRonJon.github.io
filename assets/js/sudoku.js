@@ -134,11 +134,28 @@ class Board {
     }
 }
 
-function setBoard(board, cells) {
+function setBoard(board, cells, colorDefault=false, colorSolved=false) {
     let index = 0;
     for(let i = 0; i < board.BOARD_SIZE; i++) {
         for(let j = 0; j < board.BOARD_SIZE; j++) {
             cells[index].textContent = board.grid[i][j].getCellValue();
+            if(colorSolved && !board.grid[i][j].isDefault) {
+                cells[index].style.backgroundColor = solvedColor;
+            }
+            if(colorDefault && board.grid[i][j].isDefault) {
+                cells[index].style.backgroundColor = defaultColor;
+            }
+            index++;
+        }
+    }
+}
+
+function clearBoard(board, cells) {
+    let index = 0;
+    for(let i = 0; i < board.BOARD_SIZE; i++) {
+        for(let j = 0; j < board.BOARD_SIZE; j++) {
+            cells[index].textContent = "";
+            cells[index].style.backgroundColor = "";
             index++;
         }
     }
@@ -152,17 +169,33 @@ function isValidBoard(boardString) {
 }
 
 const solveButton = document.querySelector("#solveButton");
+const loadButton = document.querySelector("#loadButton");
 const boardInput = document.querySelector("#boardInput");
+const colorCheckbox = document.querySelector("#colorCheckbox");
 const unsolvedCells = document.getElementById("unsolved").getElementsByTagName("td");
 const solvedCells = document.getElementById("solved").getElementsByTagName("td");
 const allCells = document.getElementsByTagName("td");
+const solvedColor = "lightgreen";
+const defaultColor = "lightgrey";
 
-solveButton.addEventListener('click', () => {
+let isLoaded = false;
+let activeBoard = null;
+
+loadButton.addEventListener('click', () => {
     boardString = boardInput.value;
     if(isValidBoard(boardString)) {
-        const board = new Board(boardString);
-        setBoard(board, unsolvedCells);
-        board.solve();
-        setBoard(board, solvedCells);
+        activeBoard = new Board(boardString);
+        isLoaded = true;
+        setBoard(activeBoard, unsolvedCells);
+        clearBoard(activeBoard, solvedCells);
     }
+});
+
+solveButton.addEventListener('click', () => {
+    if(!isLoaded) {
+        console.log("Board is not loaded to solve.");
+        return;
+    }
+    activeBoard.solve();
+    setBoard(activeBoard, solvedCells, colorCheckbox.checked, colorCheckbox.checked);
 });

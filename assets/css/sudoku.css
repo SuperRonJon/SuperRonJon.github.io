@@ -26,3 +26,11 @@ td { border: solid thin; height: 2em; width: 2em; text-align: center; padding: 0
 #solveButton {
     margin-left: 1em;
 }
+
+#loadButton {
+    margin-left: 1em;
+}
+
+#checkboxArea {
+    margin-left: 1em;
+}
