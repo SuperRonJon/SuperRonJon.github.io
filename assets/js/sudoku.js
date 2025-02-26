@@ -70,6 +70,18 @@ class Board {
     }
 
     solve() {
+        // Check the board isn't initially invalid before attempting to solve.
+        for(let i = 0; i < this.BOARD_SIZE; i++) {
+            for(let j = 0; j < this.BOARD_SIZE; j++) {
+                if(!this.grid[i][j].isEmpty()) {
+                    if(!this.isPossibility(this.grid[i][j].value, i, j, true)) {
+                        this.isSolved = false;
+                        return;
+                    }
+                    this.grid[i][j].isDefault = true;
+                }
+            }
+        }
         this.isSolved = this.iSolve(0, 0);
     }
 
@@ -98,21 +110,42 @@ class Board {
         return false;
     }
 
-    isPossibility(number, row, col) {
-        return (!this.rowContains(number, row) && !this.columnContains(number, col) && !this.squareContains(number, row, col));
+    // Checks if it is possible to insert number into board.grid[row][col]
+    // If skip is true the cell that is being analyzed is not counted.
+    // Skip is necessary to check if number is allowed to be where it already is
+    isPossibility(number, row, col, skip=false) {
+        return (!this.rowContains(number, row, col, skip) && !this.columnContains(number, row, col, skip) && !this.squareContains(number, row, col, skip));
     }
 
-    rowContains(number, row) {
+    // Checks if the board has any empty spaces
+    isFull() {
         for(let i = 0; i < this.BOARD_SIZE; i++) {
-            if(this.grid[row][i].value === number) {
+            for(let j = 0; j < this.BOARD_SIZE; j++) {
+                if(this.grid[i][j].value === -1) {
+                    return false;
+                }
+            }
+        }
+        return true;
+    }
+
+    rowContains(number, row, col, skip=false) {
+        for(let i = 0; i < this.BOARD_SIZE; i++) {
+            if(skip && col === i) {
+                continue;
+            }
+            if(this.grid[row][i].value === number && !(skip && row === i)) {
                 return true;
             }
         }
         return false;
     }
 
-    columnContains(number, column) {
+    columnContains(number, row, column, skip=false) {
         for(let i = 0; i < this.BOARD_SIZE; i++) {
+            if(skip && row === i) {
+                continue;
+            }
             if(this.grid[i][column].value === number) {
                 return true;
             }
@@ -120,12 +153,15 @@ class Board {
         return false;
     }
 
-    squareContains(number, row, col) {
+    squareContains(number, row, col, skip=false) {
         let startRow = row - (row % 3);
         let startCol = col - (col % 3);
 
         for(let i = 0; i < 3; i++) {
             for(let j = 0; j < 3; j++) {
+                if(skip && row === i + startRow && col === j + startCol) {
+                    continue;
+                }
                 if(this.grid[i + startRow][j + startCol].value === number) {
                     return true;
                 }
@@ -139,6 +175,8 @@ class Board {
     }
 }
 
+// Draws the values of board.grid onto cells, list of td elements representing the board to draw on.
+// colorDefault and colorSolved will color the solved and initial values accordingly
 function setBoard(board, cells, colorDefault=false, colorSolved=false) {
     let index = 0;
     for(let i = 0; i < board.BOARD_SIZE; i++) {
@@ -161,10 +199,10 @@ function setBoard(board, cells, colorDefault=false, colorSolved=false) {
     }
 }
 
-function clearBoard(board, cells) {
+function clearBoard(cells, boardSize = 9) {
     let index = 0;
-    for(let i = 0; i < board.BOARD_SIZE; i++) {
-        for(let j = 0; j < board.BOARD_SIZE; j++) {
+    for(let i = 0; i < boardSize; i++) {
+        for(let j = 0; j < boardSize; j++) {
             cells[index].textContent = "";
             cells[index].style.backgroundColor = "";
             index++;
@@ -186,6 +224,7 @@ function indexToPair(index) {
 
 const solveButton = document.querySelector("#solveButton");
 const loadButton = document.querySelector("#loadButton");
+const clearButton = document.querySelector("#clearButton");
 const boardInput = document.querySelector("#boardInput");
 const colorCheckbox = document.querySelector("#colorCheckbox");
 const unsolvedCells = document.getElementById("unsolved").getElementsByTagName("td");
@@ -283,19 +322,22 @@ loadButton.addEventListener('click', () => {
         activeBoard = new Board(boardString);
         isLoaded = true;
         setBoard(activeBoard, unsolvedCells);
-        clearBoard(activeBoard, solvedCells);
+        clearBoard(solvedCells);
     }
 });
 
 solveButton.addEventListener('click', () => {
-    /*
-    if(!isLoaded) {
-        console.log("Board is not loaded to solve.");
-        return;
-    }
-    */
     if(activeBoard) {
-        activeBoard.solve();
+        if(!activeBoard.isFull()) {
+            activeBoard.solve();
+        }
         setBoard(activeBoard, solvedCells, colorCheckbox.checked, colorCheckbox.checked);
     }    
+});
+
+clearButton.addEventListener('click', () => {
+    activeBoard = new Board("xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx");
+    isLoaded = false;
+    clearBoard(solvedCells);
+    clearBoard(unsolvedCells);
 });

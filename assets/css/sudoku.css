@@ -31,6 +31,10 @@ td { border: solid thin; height: 2em; width: 2em; text-align: center; padding: 0
     margin-left: 1em;
 }
 
+#clearButton {
+    margin-left: 1em;
+}
+
 #checkboxArea {
     margin-left: 1em;
 }
