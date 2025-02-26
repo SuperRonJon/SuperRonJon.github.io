@@ -129,6 +129,17 @@ class Board {
         return true;
     }
 
+    isEmpty() {
+        for(let i = 0; i < this.BOARD_SIZE; i++) {
+            for(let j = 0; j < this.BOARD_SIZE; j++) {
+                if(this.grid[i][j].value !== -1) {
+                    return false;
+                }
+            }
+        }
+        return true;
+    }
+
     rowContains(number, row, col, skip=false) {
         for(let i = 0; i < this.BOARD_SIZE; i++) {
             if(skip && col === i) {
@@ -198,7 +209,7 @@ function setBoard(board, cells, colorDefault=false, colorSolved=false) {
     for(let i = 0; i < board.BOARD_SIZE; i++) {
         for(let j = 0; j < board.BOARD_SIZE; j++) {
             cells[index].textContent = board.grid[i][j].getCellValue();
-            if(colorSolved && !board.grid[i][j].isDefault) {
+            if(colorSolved && !board.grid[i][j].isDefault && !board.isEmpty()) {
                 cells[index].style.backgroundColor = board.isSolved ? solvedColor: failColor;                
             }
             if(colorDefault && board.grid[i][j].isDefault) {
@@ -370,4 +381,9 @@ clearButton.addEventListener('click', () => {
 
 exportButton.addEventListener('click', () => {
     resultString.textContent = "Current Board String: " + activeBoard.exportToString();
+});
+
+colorCheckbox.addEventListener('click', (e) => {
+    //console.log("checkbox toggle", colorCheckbox.checked);
+    setBoard(activeBoard, solvedCells, colorCheckbox.checked, colorCheckbox.checked);
 });
