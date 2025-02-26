@@ -27,7 +27,7 @@ class Box {
 }
 
 class Board {
-    constructor(boardString) {
+    constructor(boardString = "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx") {
         this.BOARD_SIZE = 9;
         this.grid = [];
         this.isSolved = false;
@@ -235,7 +235,7 @@ const defaultColor = "lightgrey";
 const failColor = "lightcoral";
 
 let isLoaded = false;
-let activeBoard = new Board("xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx");
+let activeBoard = new Board();
 
 let activeCell = null;
 let activeCellIndex = null;
@@ -311,6 +311,12 @@ window.addEventListener('keydown', (e) => {
                     activeCell.classList.add('selected');
                 }
                 break;
+            case "Backspace":
+                const [row, col] = indexToPair(activeCellIndex);
+                if(!activeBoard?.grid[row][col].isDefault) {
+                    activeCell.textContent = "";
+                    activeBoard?.grid[row][col].setCellValue(-1); 
+                }
         }
     }
     
@@ -336,7 +342,7 @@ solveButton.addEventListener('click', () => {
 });
 
 clearButton.addEventListener('click', () => {
-    activeBoard = new Board("xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx");
+    activeBoard = new Board();
     isLoaded = false;
     clearBoard(solvedCells);
     clearBoard(unsolvedCells);
