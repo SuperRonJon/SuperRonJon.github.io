@@ -12,13 +12,17 @@
 		<div id="input">
 			<label for="boardInput">Board String: </label>
 			<input id="boardInput" type="text" name="boardInput" value="x56xxx27872xx361xx8xxxxx46x5xxx47xxx4x9xxx7x5xxx65xxx4x35xxxxx7xx718xx32918xxx54x">
-			<button id="loadButton">Load</button>
-			<button id="solveButton">Solve</button>
-			<button id="clearButton">Clear</button>
+			<button class="inputButton" id="loadButton">Load</button>
+			<button class="inputButton" id="solveButton">Solve</button>
+			<button class="inputButton" id="exportButton">Export</button>
+			<button class="inputButton" id="clearButton">Clear</button>
 			<div id="checkboxArea">
 				<label for="colorsOn">Color output board: </label>
 				<input type="checkbox" name="colorsOn" id="colorCheckbox" checked>
 			</div>
+		</div>
+		<div>
+			<p id="resultString" class="center"></p>
 		</div>
 		<div id="boards">
 			<div id="unsolved">

@@ -1,12 +1,24 @@
-table { border-collapse: collapse; font-family: Calibri, sans-serif; }
-colgroup, tbody { border: solid medium; }
-td { border: solid thin; height: 2em; width: 2em; text-align: center; padding: 0; }
+table { 
+    border-collapse: collapse; 
+    font-family: Calibri, sans-serif; 
+}
+
+colgroup, tbody { 
+    border: solid medium; 
+}
+td { 
+    border: solid thin; 
+    height: 2em; 
+    width: 2em; 
+    text-align: center; 
+    padding: 0; 
+}
 
 
 #boards {
     display: flex;
     justify-content:center;
-    margin-top: 8em;
+    margin-top: 5em;
 }
 
 #solved {
@@ -23,22 +35,22 @@ td { border: solid thin; height: 2em; width: 2em; text-align: center; padding: 0
     width:575px;
 }
 
-#solveButton {
-    margin-left: 1em;
-}
-
-#loadButton {
-    margin-left: 1em;
-}
-
-#clearButton {
-    margin-left: 1em;
-}
-
 #checkboxArea {
+    margin-left: 1em;
+}
+
+.inputButton {
     margin-left: 1em;
 }
 
 .selected {
     background-color: lightblue;
+}
+
+.center {
+    text-align: center;
+}
+
+#resultString{
+    margin-top: 3em;
 }

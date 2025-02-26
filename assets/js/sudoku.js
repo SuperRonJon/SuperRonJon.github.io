@@ -173,6 +173,22 @@ class Board {
     isEmptyCharacter(char) {
         return (char === 'x' || char === 'X' || char === '0'|| char === 'o'|| char === 'O'|| char === '.');
     }
+
+    // Exports active board to a loadable string with empty cells represented by emptyChar
+    exportToString(emptyChar='x') {
+        let resultString = "";
+        for(let i = 0; i < this.BOARD_SIZE; i++) {
+            for(let j = 0; j < this.BOARD_SIZE; j++) {
+                if(this.grid[i][j].value !== -1) {
+                    resultString += this.grid[i][j].value;
+                }
+                else {
+                    resultString += emptyChar;
+                }
+            }
+        }
+        return resultString;
+    }
 }
 
 // Draws the values of board.grid onto cells, list of td elements representing the board to draw on.
@@ -199,6 +215,7 @@ function setBoard(board, cells, colorDefault=false, colorSolved=false) {
     }
 }
 
+// clears the displayed values in cells
 function clearBoard(cells, boardSize = 9) {
     let index = 0;
     for(let i = 0; i < boardSize; i++) {
@@ -225,8 +242,10 @@ function indexToPair(index) {
 const solveButton = document.querySelector("#solveButton");
 const loadButton = document.querySelector("#loadButton");
 const clearButton = document.querySelector("#clearButton");
+const exportButton = document.querySelector("#exportButton");
 const boardInput = document.querySelector("#boardInput");
 const colorCheckbox = document.querySelector("#colorCheckbox");
+const resultString = document.querySelector("#resultString");
 const unsolvedCells = document.getElementById("unsolved").getElementsByTagName("td");
 const solvedCells = document.getElementById("solved").getElementsByTagName("td");
 const allCells = document.getElementsByTagName("td");
@@ -346,4 +365,9 @@ clearButton.addEventListener('click', () => {
     isLoaded = false;
     clearBoard(solvedCells);
     clearBoard(unsolvedCells);
+    resultString.textContent = "";
+});
+
+exportButton.addEventListener('click', () => {
+    resultString.textContent = "Current Board String: " + activeBoard.exportToString();
 });
