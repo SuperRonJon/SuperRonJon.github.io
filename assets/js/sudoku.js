@@ -52,7 +52,6 @@ class Board {
             if(borders && i !== 0 && i % 3 === 0) {
                 row += "------+-------+------\n";
             }
-            //let row = "";
             for(let j = 0; j < this.BOARD_SIZE; j++) {
                 if(borders && j !== 0 && j % 3 === 0) {
                     row += "| ";
@@ -129,6 +128,7 @@ class Board {
         return true;
     }
 
+    // Checks if the board has any non-empty spaces
     isEmpty() {
         for(let i = 0; i < this.BOARD_SIZE; i++) {
             for(let j = 0; j < this.BOARD_SIZE; j++) {
@@ -265,6 +265,7 @@ const defaultColor = "lightgrey";
 const failColor = "lightcoral";
 
 let isLoaded = false;
+let solveTried = false;
 let activeBoard = new Board();
 
 let activeCell = null;
@@ -366,6 +367,7 @@ solveButton.addEventListener('click', () => {
     if(activeBoard) {
         if(!activeBoard.isFull()) {
             activeBoard.solve();
+            solveTried = true;
         }
         setBoard(activeBoard, solvedCells, colorCheckbox.checked, colorCheckbox.checked);
     }    
@@ -374,6 +376,7 @@ solveButton.addEventListener('click', () => {
 clearButton.addEventListener('click', () => {
     activeBoard = new Board();
     isLoaded = false;
+    solveTried = false;
     clearBoard(solvedCells);
     clearBoard(unsolvedCells);
     resultString.textContent = "";
@@ -384,6 +387,7 @@ exportButton.addEventListener('click', () => {
 });
 
 colorCheckbox.addEventListener('click', (e) => {
-    //console.log("checkbox toggle", colorCheckbox.checked);
-    setBoard(activeBoard, solvedCells, colorCheckbox.checked, colorCheckbox.checked);
+    if(solveTried) {
+        setBoard(activeBoard, solvedCells, colorCheckbox.checked, colorCheckbox.checked);
+    }
 });
