@@ -15,7 +15,7 @@ td {
 }
 
 #colorPickers {
-    display: flex;
+    display: none;
     justify-content:space-around;
     margin-top: 3em;
     margin: 3em auto;

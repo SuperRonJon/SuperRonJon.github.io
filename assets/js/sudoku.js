@@ -260,6 +260,7 @@ const resultString = document.querySelector("#resultString");
 const unsolvedCells = document.getElementById("unsolved").getElementsByTagName("td");
 const solvedCells = document.getElementById("solved").getElementsByTagName("td");
 const allCells = document.getElementsByTagName("td");
+const bothColorPickers = document.getElementById("colorPickers");
 const solvedColorPicker = document.getElementById("successColor");
 const failColorPicker = document.getElementById("failColor");
 
@@ -364,6 +365,9 @@ loadButton.addEventListener('click', () => {
         isLoaded = true;
         setBoard(activeBoard, unsolvedCells);
         clearBoard(solvedCells);
+    }
+    else if(boardString.toLowerCase() === 'colors') {
+        bothColorPickers.style.display = 'flex';
     }
 });
 
