@@ -357,6 +357,7 @@ loadButton.addEventListener('click', () => {
     boardString = boardInput.value;
     if(isValidBoard(boardString)) {
         activeBoard = new Board(boardString);
+        solveTried = false;
         isLoaded = true;
         setBoard(activeBoard, unsolvedCells);
         clearBoard(solvedCells);
