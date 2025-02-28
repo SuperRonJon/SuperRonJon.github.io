@@ -260,9 +260,12 @@ const resultString = document.querySelector("#resultString");
 const unsolvedCells = document.getElementById("unsolved").getElementsByTagName("td");
 const solvedCells = document.getElementById("solved").getElementsByTagName("td");
 const allCells = document.getElementsByTagName("td");
-const solvedColor = "lightgreen";
+const solvedColorPicker = document.getElementById("successColor");
+const failColorPicker = document.getElementById("failColor");
+
+let solvedColor = solvedColorPicker.value;
+let failColor = failColorPicker.value;
 const defaultColor = "lightgrey";
-const failColor = "lightcoral";
 
 let isLoaded = false;
 let solveTried = false;
@@ -388,6 +391,20 @@ exportButton.addEventListener('click', () => {
 });
 
 colorCheckbox.addEventListener('click', (e) => {
+    if(solveTried) {
+        setBoard(activeBoard, solvedCells, colorCheckbox.checked, colorCheckbox.checked);
+    }
+});
+
+solvedColorPicker.addEventListener('change', () => {
+    solvedColor = solvedColorPicker.value;
+    if(solveTried) {
+        setBoard(activeBoard, solvedCells, colorCheckbox.checked, colorCheckbox.checked);
+    }
+});
+
+failColorPicker.addEventListener('change', () => {
+    failColor = failColorPicker.value;
     if(solveTried) {
         setBoard(activeBoard, solvedCells, colorCheckbox.checked, colorCheckbox.checked);
     }
