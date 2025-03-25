@@ -1,4 +1,4 @@
 # SuperRonJon.github.io
-My personal portfolio website
+My personal projects website
 
-View live at https://patrickseute.com/
+View live at https://www.superronjon.com/
