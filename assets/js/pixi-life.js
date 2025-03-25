@@ -107,9 +107,11 @@ function updateGrid(cells, resultCells) {
 
 let cells = initCells();
 let nextCells = initCells(false);
+let savedCells = structuredClone(cells);
 const graphics = new PIXI.Graphics();
 let playing = true;
 let playOne = false;
+let saveOnStart = false;
 
 let leftMouseButtonHeld = false;
 let rightMouseButtonHeld = false;
@@ -125,6 +127,7 @@ document.addEventListener("keyup", (event) => {
         case "Space":
             playing = !playing;
             if(playing && saveOnStart) {
+                savedCells = structuredClone(cells);
                 saveOnStart = false;
             } 
             break;
@@ -133,6 +136,7 @@ document.addEventListener("keyup", (event) => {
             break;
         case "Backspace":
             cells = initCells(false);
+            saveOnStart = true;
             break;
     }    
 });
@@ -142,6 +146,12 @@ document.addEventListener("keydown", (event) => {
         case "ArrowRight":
             playOne = true;
             break;
+        case "ArrowLeft":
+            cells = structuredClone(savedCells);
+            if(!playing) {
+                saveOnStart = true;
+            }
+            break;
     }
 });
 
@@ -150,21 +160,20 @@ document.addEventListener("mousedown", (event) => {
     let rowIndex = parseInt((event.offsetY - modulo(event.offsetY, GRID_SIZE)) / GRID_SIZE);
 
     if(event.button === 0 && !playing) {
-        cells[rowIndex][colIndex] = ALIVE;
-        leftMouseButtonHeld = true;
-    }
-    else if(event.button === 2 && !playing) {
-        cells[rowIndex][colIndex] = DEAD;
-        rightMouseButtonHeld = true;
+        if(event.ctrlKey) {
+            cells[rowIndex][colIndex] = DEAD;
+            rightMouseButtonHeld = true;
+        }
+        else {
+            cells[rowIndex][colIndex] = ALIVE;
+            leftMouseButtonHeld = true;    
+        }
     }
 });
 document.addEventListener("mouseup", (event) => {
     if(event.button === 0) {
         leftMouseButtonHeld = false;
-    }
-    else if(event.button === 2) {
         rightMouseButtonHeld = false;
-        event.preventDefault();
     }
 });
 document.addEventListener("mousemove", (event) => {
