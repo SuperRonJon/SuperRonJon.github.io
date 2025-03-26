@@ -145,6 +145,10 @@ document.addEventListener("keydown", (event) => {
     switch(event.code) {
         case "ArrowRight":
             playOne = true;
+            if(saveOnStart) {
+                savedCells = structuredClone(cells);
+                saveOnStart = false;
+            }
             break;
         case "ArrowLeft":
             cells = structuredClone(savedCells);
