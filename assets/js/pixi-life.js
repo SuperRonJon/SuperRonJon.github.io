@@ -3,8 +3,8 @@ const app = new PIXI.Application();
 const WINDOW_WIDTH = 1900;
 const WINDOW_HEIGHT = 900;
 const GRID_SIZE = 10;
-const GRID_WIDTH = WINDOW_WIDTH / GRID_SIZE;
-const GRID_HEIGHT = WINDOW_HEIGHT / GRID_SIZE;
+const GRID_WIDTH = Math.floor(WINDOW_WIDTH / GRID_SIZE);
+const GRID_HEIGHT = Math.floor(WINDOW_HEIGHT / GRID_SIZE);
 const ALIVE = true;
 const DEAD = false;
 
